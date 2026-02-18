@@ -1,100 +1,90 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
-
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{
-        background: "linear-gradient(135deg, #667eea, #764ba2)",
-      }}
-    >
+    <div className="d-flex vh-100">
+
+      {/* Left panel */}
       <div
-        className="card shadow-lg border-0 p-4"
+        className="d-none d-lg-flex flex-column justify-content-center text-white p-5"
         style={{
-          width: "24rem",
-          borderRadius: "20px",
-          backdropFilter: "blur(15px)",
-          background: "rgba(255, 255, 255, 0.15)",
-          color: "#fff",
+          width: "50%",
+          background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
         }}
       >
-        <div className="card-body">
-          <h3 className="text-center mb-4 fw-bold">Welcome Back</h3>
+        <h2 className="fw-bold mb-3">TaxPal</h2>
+        <h3 className="fw-semibold mb-3">
+          Simplify your taxes. Automate your finances.
+        </h3>
+        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
+          A modern platform to manage invoices, tax reports, and financial insights —
+          built for professionals and businesses.
+        </p>
+      </div>
 
-          {/* Email */}
-          <div className="mb-3 position-relative">
-            <label className="form-label fw-semibold">Email</label>
-            <input
-              type="email"
-              className="form-control rounded-pill ps-4"
-              placeholder="Enter your email"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-          </div>
+      {/* Right panel */}
+      <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
+        <div style={{ width: "380px" }}>
 
-          {/* Password */}
-          <div className="mb-2 position-relative">
-            <label className="form-label fw-semibold">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control rounded-pill ps-4"
-              placeholder="Enter your password"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-            <span
-              style={{
-                position: "absolute",
-                right: "15px",
-                top: "38px",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </span>
-          </div>
+          <h3 className="fw-bold mb-2">Sign in to your account</h3>
+          <p className="text-muted mb-4">
+            Enter your credentials to access your dashboard
+          </p>
 
-          <div className="text-end mb-3">
-            <small style={{ cursor: "pointer" }}>
-              Forgot password?
-            </small>
-          </div>
+          <form>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Email address</label>
+              <input
+                type="email"
+                className="form-control py-2"
+                placeholder="name@company.com"
+              />
+            </div>
 
-          {/* Button */}
-          <button
-            className="btn w-100 rounded-pill py-2 fw-semibold"
-            style={{
-              background: "#fff",
-              color: "#764ba2",
-              transition: "0.3s",
-            }}
-          >
-            Login
-          </button>
+            <div className="mb-3 position-relative">
+              <label className="form-label fw-semibold">Password</label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control py-2"
+                placeholder="Enter password"
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "38px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: "#555"
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
 
-         <p className="text-center mt-3 mb-0 small">
-  Don’t have an account?{" "}
-  <Link
-    to="/register"
-    style={{ textDecoration: "none", fontWeight: "600", color: "#fff" }}
-  >
-    Sign up
-  </Link>
-</p>
+            <div className="d-flex justify-content-between mb-3 small">
+              <div>
+                <input type="checkbox" className="me-1" />
+                Remember me
+              </div>
+              <span style={{ cursor: "pointer" }}>Forgot password?</span>
+            </div>
+
+            <button className="btn btn-primary w-100 py-2 mb-3">
+              Sign in
+            </button>
+          </form>
+
+          <p className="text-center small text-muted">
+            Don’t have an account?{" "}
+            <Link to="/register" className="fw-semibold">
+              Create one
+            </Link>
+          </p>
         </div>
       </div>
     </div>

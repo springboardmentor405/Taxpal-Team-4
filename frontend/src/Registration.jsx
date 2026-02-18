@@ -3,136 +3,87 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center vh-100"
-      style={{
-        background: "linear-gradient(135deg, #667eea, #764ba2)",
-      }}
-    >
+    <div className="d-flex vh-100">
+
+      {/* Left panel */}
       <div
-        className="card shadow-lg border-0 p-4"
+        className="d-none d-lg-flex flex-column justify-content-center text-white p-5"
         style={{
-          width: "25rem",
-          borderRadius: "20px",
-          backdropFilter: "blur(15px)",
-          background: "rgba(255, 255, 255, 0.15)",
-          color: "#fff",
+          width: "50%",
+          background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
         }}
       >
-        <div className="card-body">
-          <h3 className="text-center mb-4 fw-bold">Create Account </h3>
+        <h2 className="fw-bold mb-3">TaxPal</h2>
+        <h3 className="fw-semibold mb-3">
+          Start managing your finances smarter today
+        </h3>
+        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
+          Create your account to generate invoices, track taxes,
+          and gain financial insights in minutes.
+        </p>
+      </div>
 
-          {/* Full Name */}
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Full Name</label>
-            <input
-              type="text"
-              className="form-control rounded-pill"
-              placeholder="Enter your name"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-          </div>
+      {/* Right panel */}
+      <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
+        <div style={{ width: "380px" }}>
 
-          {/* Email */}
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Email</label>
-            <input
-              type="email"
-              className="form-control rounded-pill"
-              placeholder="Enter your email"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-          </div>
+          <h3 className="fw-bold mb-2">Create your account</h3>
+          <p className="text-muted mb-4">
+            It takes less than a minute to get started
+          </p>
 
-          {/* Password */}
-          <div className="mb-3 position-relative">
-            <label className="form-label fw-semibold">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control rounded-pill"
-              placeholder="Enter password"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-            <span
-              style={{
-                position: "absolute",
-                right: "15px",
-                top: "38px",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </span>
-          </div>
+          <form>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Full name</label>
+              <input
+                type="text"
+                className="form-control py-2"
+                placeholder="Enter your name"
+              />
+            </div>
 
-          {/* Confirm Password */}
-          <div className="mb-3 position-relative">
-            <label className="form-label fw-semibold">Confirm Password</label>
-            <input
-              type={showConfirm ? "text" : "password"}
-              className="form-control rounded-pill"
-              placeholder="Confirm password"
-              style={{
-                background: "rgba(255,255,255,0.2)",
-                border: "none",
-                color: "#fff",
-              }}
-            />
-            <span
-              style={{
-                position: "absolute",
-                right: "15px",
-                top: "38px",
-                cursor: "pointer",
-                fontSize: "14px",
-              }}
-              onClick={() => setShowConfirm(!showConfirm)}
-            >
-              {showConfirm ? "Hide" : "Show"}
-            </span>
-          </div>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Email address</label>
+              <input
+                type="email"
+                className="form-control py-2"
+                placeholder="name@company.com"
+              />
+            </div>
 
-          {/* Register Button */}
-          <button
-            className="btn w-100 rounded-pill py-2 fw-semibold"
-            style={{
-              background: "#fff",
-              color: "#764ba2",
-              transition: "0.3s",
-            }}
-          >
-            Register
-          </button>
+            <div className="mb-3 position-relative">
+              <label className="form-label fw-semibold">Password</label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control py-2"
+                placeholder="Create a strong password"
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "38px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: "#555"
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
 
-          {/* Login Link */}
-          <p className="text-center mt-3 mb-0 small">
-            Already have an account?{" "}
-            <Link
-              to="/"
-              style={{
-                textDecoration: "none",
-                fontWeight: "600",
-                color: "#fff",
-              }}
-            >
-              Login
+            <button className="btn btn-primary w-100 py-2 mb-3">
+              Create account
+            </button>
+          </form>
+
+          <p className="text-center small text-muted">
+            Already registered?{" "}
+            <Link to="/" className="fw-semibold">
+              Sign in
             </Link>
           </p>
         </div>
