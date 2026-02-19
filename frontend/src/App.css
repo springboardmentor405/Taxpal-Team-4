@@ -40,3 +40,33 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+}
+
+.dashboard {
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  padding: 25px;
+}
+
+.charts {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
