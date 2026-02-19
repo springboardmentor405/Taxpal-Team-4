@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.buttons button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.income-btn {
+  background: white;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+.expense-btn {
+  background: #2563eb;
+  color: white;
+}

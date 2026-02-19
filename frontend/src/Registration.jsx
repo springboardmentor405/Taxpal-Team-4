@@ -19,10 +19,10 @@ export default function Register() {
         <h3 className="fw-semibold mb-3">
           Start managing your finances smarter today
         </h3>
-        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
+        {/* <p style={{ maxWidth: "420px", opacity: 0.9 }}>
           Create your account to generate invoices, track taxes,
           and gain financial insights in minutes.
-        </p>
+        </p> */}
       </div>
 
       {/* Right panel */}
@@ -75,9 +75,15 @@ export default function Register() {
               </span>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
-              Create account
-            </button>
+            <button
+  className="w-100 py-2 mb-3 text-white border-0"
+  style={{
+    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+    cursor: "pointer",
+  }}
+>
+  Sign in
+  </button>
           </form>
 
           <p className="text-center small text-muted">

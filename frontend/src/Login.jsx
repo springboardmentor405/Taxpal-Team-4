@@ -19,17 +19,17 @@ export default function Login() {
         <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
         </h3>
-        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
+        {/* <p style={{ maxWidth: "420px", opacity: 0.9 }}>
           A modern platform to manage invoices, tax reports, and financial insights —
           built for professionals and businesses.
-        </p>
+        </p> */}
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
         <div style={{ width: "380px" }}>
 
-          <h3 className="fw-bold mb-2">Sign in to your account</h3>
+          <h3 className="fw-bold mb-2 ">Sign in to your account</h3>
           <p className="text-muted mb-4">
             Enter your credentials to access your dashboard
           </p>
@@ -74,9 +74,16 @@ export default function Login() {
               <span style={{ cursor: "pointer" }}>Forgot password?</span>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
-              Sign in
-            </button>
+           <button
+  className="w-100 py-2 mb-3 text-white border-0"
+  style={{
+    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+    cursor: "pointer",
+  }}
+>
+  Sign in
+</button>
+
           </form>
 
           <p className="text-center small text-muted">
