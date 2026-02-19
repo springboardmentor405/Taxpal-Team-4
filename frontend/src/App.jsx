@@ -1,28 +1,20 @@
-
-import './App.css'
-<<<<<<< HEAD
-=======
-import Login from './Login'
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Login from "./Login";
 import Register from "./Registration";
->>>>>>> login-registration
+import ForgotPassword from "./ForgotPassword";
 
 function App() {
- 
   return (
-<<<<<<< HEAD
-    <>
-   
-    </>
-=======
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </Router>
->>>>>>> login-registration
-  )
+  );
 }
 
-export default App
+export default App;
