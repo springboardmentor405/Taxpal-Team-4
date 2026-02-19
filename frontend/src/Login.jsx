@@ -6,7 +6,6 @@ export default function Login() {
 
   return (
     <div className="d-flex vh-100">
-
       {/* Left panel */}
       <div
         className="d-none d-lg-flex flex-column justify-content-center text-white p-5"
@@ -28,7 +27,6 @@ export default function Login() {
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
         <div style={{ width: "380px" }}>
-
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
             Enter your credentials to access your dashboard
@@ -71,10 +69,14 @@ export default function Login() {
                 <input type="checkbox" className="me-1" />
                 Remember me
               </div>
-              <span style={{ cursor: "pointer" }}>Forgot password?</span>
+
+              {/* ✅ WORKING FORGOT LINK */}
+              <Link to="/forgot-password" className="text-decoration-none">
+                Forgot password?
+              </Link>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
+            <button type="submit" className="btn btn-primary w-100 py-2 mb-3">
               Sign in
             </button>
           </form>
