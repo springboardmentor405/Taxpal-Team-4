@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Registration";
 import ForgotPassword from "./ForgotPassword";
+import VerifyCode from "./VerifyCode";
 
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify" element={<VerifyCode />} />
 
         {/* Dashboard */}
         <Route
