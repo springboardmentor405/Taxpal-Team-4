@@ -1,18 +1,16 @@
+
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./Login";
 import Register from "./Registration";
 import ForgotPassword from "./ForgotPassword";
-import './App.css';
-import Login from './Login';
-import Register from './Registration';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import IncomeExpenseChart from './components/IncomeExpenseChart';
-import ExpensePieChart from './components/ExpensePieChart';
-import Transactions from './components/Transactions';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import IncomeExpenseChart from "./components/IncomeExpenseChart";
+import ExpensePieChart from "./components/ExpensePieChart";
+import Transactions from "./components/Transactions";
 
 function App() {
   return (
@@ -20,11 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-
-        {/* Dashboard Route */}
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={

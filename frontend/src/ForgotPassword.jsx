@@ -39,18 +39,15 @@ export default function ForgotPassword() {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label>Email address</label>
+              <label>Registered Email</label>
               <input
                 type="email"
-                placeholder="Enter your email address"
+                placeholder="Enter your registered email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <button
-                type="submit"
-                disabled={!isValidEmail(email)}
-              >
+              <button type="submit" disabled={!isValidEmail(email)}>
                 Send code
               </button>
             </form>
@@ -76,29 +73,32 @@ export default function ForgotPassword() {
           width: 100%;
         }
 
+        /* LEFT SIDE */
         .forgot-left {
           flex: 1;
           background: linear-gradient(135deg, #1e3a8a, #4f46e5);
           color: white;
           display: flex;
           align-items: center;
-          justify-content: center;
-          padding: 60px;
+          justify-content: flex-start;
+          padding: 60px 80px;
+          text-align: left;
         }
 
         .branding {
-          max-width: 400px;
+          max-width: 420px;
         }
 
         .branding h1 {
-          font-size: 40px;
-          margin-bottom: 20px;
+          font-size: 42px;
+          font-weight: 700;
+          margin-bottom: 24px;
         }
 
         .branding h2 {
-          font-size: 22px;
-          font-weight: 500;
-          margin-bottom: 15px;
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 18px;
         }
 
         .branding p {
@@ -107,6 +107,7 @@ export default function ForgotPassword() {
           line-height: 1.6;
         }
 
+        /* RIGHT SIDE */
         .forgot-right {
           flex: 1;
           background: #f9fafb;
