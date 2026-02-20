@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate(); // ✅ initialize navigation
 
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -13,6 +14,9 @@ export default function ForgotPassword() {
     if (!isValidEmail(email)) return;
 
     console.log("Reset email sent to:", email);
+
+    // ✅ Redirect to verify page
+    navigate("/verify");
   };
 
   return (
@@ -77,7 +81,6 @@ export default function ForgotPassword() {
           width: 100%;
         }
 
-        /* LEFT SIDE */
         .forgot-left {
           flex: 1;
           background: linear-gradient(135deg, #1e3a8a, #4f46e5);
@@ -111,7 +114,6 @@ export default function ForgotPassword() {
           line-height: 1.6;
         }
 
-        /* RIGHT SIDE */
         .forgot-right {
           flex: 1;
           background: #f9fafb;
@@ -151,7 +153,6 @@ export default function ForgotPassword() {
           font-size: 14px;
           margin-bottom: 6px;
           font-weight: 500;
-          display: block;
         }
 
         input {
@@ -173,16 +174,22 @@ export default function ForgotPassword() {
           padding: 12px;
           border-radius: 8px;
           border: none;
-          background: ${isValidEmail(email) ? "#2563eb" : "#cbd5e1"};
+          background: ${
+            isValidEmail(email) ? "#2563eb" : "#cbd5e1"
+          };
           color: white;
           font-size: 14px;
           font-weight: 500;
-          cursor: ${isValidEmail(email) ? "pointer" : "not-allowed"};
+          cursor: ${
+            isValidEmail(email) ? "pointer" : "not-allowed"
+          };
           transition: 0.3s ease;
         }
 
         button:hover {
-          background: ${isValidEmail(email) ? "#1d4ed8" : "#cbd5e1"};
+          background: ${
+            isValidEmail(email) ? "#1d4ed8" : "#cbd5e1"
+          };
         }
 
         .login-link {
