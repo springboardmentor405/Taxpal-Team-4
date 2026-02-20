@@ -39,7 +39,7 @@ export default function ForgotPassword() {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label>Registered Email</label>
+              <label>Email address </label>
               <input
                 type="email"
                 placeholder="Enter your registered email"
@@ -143,10 +143,12 @@ export default function ForgotPassword() {
         }
 
         label {
-          font-size: 14px;
-          margin-bottom: 6px;
-          font-weight: 500;
-        }
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-align: left;
+  display: block;     /* VERY IMPORTANT */
+}
 
         input {
           padding: 12px;
