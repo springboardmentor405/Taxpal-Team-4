@@ -27,10 +27,10 @@ export default function Register() {
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px" }}>
+        <div style={{ width: "380px",textAlign: "left" }}>
 
           <h3 className="fw-bold mb-2">Create your account</h3>
-          <p className="text-muted mb-4">
+          <p className="small text-muted" style={{ textAlign: "left" }}>
             It takes less than a minute to get started
           </p>
 

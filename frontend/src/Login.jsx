@@ -26,7 +26,7 @@ export default function Login() {
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px",textAlign: "left" }}>
+         <div style={{ width: "380px",textAlign: "left" }}>
 
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
@@ -81,8 +81,8 @@ export default function Login() {
               Sign in
             </button>
           </form>
-
-<p className="small text-muted" style={{ textAlign: "left" }}>            Don’t have an account?{" "}
+  
+          <p className="small text-muted" style={{ textAlign: "left" }}>            Don’t have an account?{" "}
             <Link to="/register" className="fw-semibold">
               Create one
             </Link>
