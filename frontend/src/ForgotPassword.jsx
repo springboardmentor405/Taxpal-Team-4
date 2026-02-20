@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ export default function ForgotPassword() {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label>Email address </label>
+              <label>Email address</label>
               <input
                 type="email"
                 placeholder="Enter your registered email"
@@ -53,7 +54,10 @@ export default function ForgotPassword() {
             </form>
 
             <p className="login-link">
-              Remember your password? <span>Log in</span>
+              Remember your password?{" "}
+              <Link to="/" className="signin-link">
+                Sign in
+              </Link>
             </p>
           </div>
         </div>
@@ -122,6 +126,7 @@ export default function ForgotPassword() {
           width: 380px;
           border-radius: 12px;
           box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+          text-align: left;
         }
 
         .forgot-card h2 {
@@ -143,12 +148,11 @@ export default function ForgotPassword() {
         }
 
         label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  font-weight: 500;
-  text-align: left;
-  display: block;     /* VERY IMPORTANT */
-}
+          font-size: 14px;
+          margin-bottom: 6px;
+          font-weight: 500;
+          display: block;
+        }
 
         input {
           padding: 12px;
@@ -182,19 +186,18 @@ export default function ForgotPassword() {
         }
 
         .login-link {
-          text-align: center;
           font-size: 14px;
           margin-top: 20px;
           color: #6b7280;
         }
 
-        .login-link span {
+        .signin-link {
           color: #2563eb;
-          cursor: pointer;
           font-weight: 500;
+          text-decoration: none;
         }
 
-        .login-link span:hover {
+        .signin-link:hover {
           text-decoration: underline;
         }
 
