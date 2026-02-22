@@ -3,10 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate(); // ✅ initialize navigation
+  const navigate = useNavigate();
 
-  const isValidEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidEmail = (value) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   };
 
   const handleSubmit = (e) => {
@@ -14,19 +14,20 @@ export default function ForgotPassword() {
     if (!isValidEmail(email)) return;
 
     console.log("Reset email sent to:", email);
-
-    // ✅ Redirect to verify page
     navigate("/verify");
   };
+
+  const isEnabled = isValidEmail(email);
 
   return (
     <>
       <div className="forgot-container">
-        {/* LEFT SIDE */}
+
+        {/* LEFT PANEL */}
         <div className="forgot-left">
           <div className="branding">
-            <h1>TaxPal</h1>
-            <h2>Simplify your taxes. Automate your finances.</h2>
+            <h2>TaxPal</h2>
+            <h3>Simplify your taxes. Automate your finances.</h3>
             <p>
               A modern platform to manage invoices, tax reports, and financial
               insights — built for professionals and businesses.
@@ -34,35 +35,40 @@ export default function ForgotPassword() {
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT PANEL */}
         <div className="forgot-right">
           <div className="forgot-card">
-            <h2>Forgot password?</h2>
+
+            <h3>Forgot password?</h3>
             <p className="subtitle">
-              Don’t worry! It happens. Please enter the email associated with
-              your account.
+              Don’t worry! It happens. Please enter the email associated with your account.
             </p>
 
             <form onSubmit={handleSubmit}>
-              <label>Email address</label>
-              <input
-                type="email"
-                placeholder="Enter your registered email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="form-group">
+                <label>Email address</label>
+                <input
+                  type="email"
+                  placeholder="Enter your registered email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-              <button type="submit" disabled={!isValidEmail(email)}>
-                Send code
+              <button
+                type="submit"
+                className="primary-btn"
+                disabled={!isEnabled}
+              >
+                Send Code
               </button>
             </form>
 
-            <p className="login-link">
+            <p className="bottom-text">
               Remember your password?{" "}
-              <Link to="/" className="signin-link">
-                Sign in
-              </Link>
+              <Link to="/">Sign in</Link>
             </p>
+
           </div>
         </div>
       </div>
@@ -78,17 +84,17 @@ export default function ForgotPassword() {
         .forgot-container {
           display: flex;
           height: 100vh;
-          width: 100%;
         }
 
+        /* LEFT PANEL */
         .forgot-left {
           flex: 1;
-          background: linear-gradient(135deg, #1e3a8a, #4f46e5);
+          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
           color: white;
           display: flex;
           align-items: center;
-          justify-content: flex-start;
-          padding: 60px 80px;
+          justify-content: center;
+          padding: 60px;
           text-align: left;
         }
 
@@ -96,15 +102,14 @@ export default function ForgotPassword() {
           max-width: 420px;
         }
 
-        .branding h1 {
-          font-size: 42px;
-          font-weight: 700;
-          margin-bottom: 24px;
+        .branding h2 {
+          font-size: 40px;
+          margin-bottom: 20px;
         }
 
-        .branding h2 {
-          font-size: 24px;
-          font-weight: 600;
+        .branding h3 {
+          font-size: 22px;
+          font-weight: 500;
           margin-bottom: 18px;
         }
 
@@ -114,6 +119,7 @@ export default function ForgotPassword() {
           line-height: 1.6;
         }
 
+        /* RIGHT PANEL */
         .forgot-right {
           flex: 1;
           background: #f9fafb;
@@ -127,26 +133,24 @@ export default function ForgotPassword() {
           padding: 40px;
           width: 380px;
           border-radius: 12px;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.05);
           text-align: left;
         }
 
-        .forgot-card h2 {
-          margin-bottom: 10px;
-          font-size: 24px;
-          font-weight: 600;
+        .forgot-card h3 {
+          margin-bottom: 8px;
         }
 
         .subtitle {
           font-size: 14px;
           color: #6b7280;
           margin-bottom: 25px;
-          line-height: 1.5;
         }
 
-        form {
+        .form-group {
           display: flex;
           flex-direction: column;
+          margin-bottom: 20px;
         }
 
         label {
@@ -159,52 +163,50 @@ export default function ForgotPassword() {
           padding: 12px;
           border-radius: 8px;
           border: 1px solid #d1d5db;
-          margin-bottom: 20px;
-          font-size: 14px;
           outline: none;
+          font-size: 14px;
           transition: 0.2s ease;
         }
 
         input:focus {
           border-color: #4f46e5;
-          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+          box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
         }
 
-        button {
+        .primary-btn {
+          width: 100%;
           padding: 12px;
-          border-radius: 8px;
           border: none;
-          background: ${
-            isValidEmail(email) ? "#2563eb" : "#cbd5e1"
-          };
+          border-radius: 8px;
+          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
           color: white;
-          font-size: 14px;
           font-weight: 500;
-          cursor: ${
-            isValidEmail(email) ? "pointer" : "not-allowed"
-          };
+          cursor: pointer;
           transition: 0.3s ease;
+          opacity: ${isEnabled ? "1" : "0.6"};
         }
 
-        button:hover {
-          background: ${
-            isValidEmail(email) ? "#1d4ed8" : "#cbd5e1"
-          };
+        .primary-btn:hover {
+          opacity: 0.9;
         }
 
-        .login-link {
-          font-size: 14px;
+        .primary-btn:disabled {
+          cursor: not-allowed;
+        }
+
+        .bottom-text {
           margin-top: 20px;
+          font-size: 14px;
           color: #6b7280;
         }
 
-        .signin-link {
+        .bottom-text a {
           color: #2563eb;
           font-weight: 500;
           text-decoration: none;
         }
 
-        .signin-link:hover {
+        .bottom-text a:hover {
           text-decoration: underline;
         }
 

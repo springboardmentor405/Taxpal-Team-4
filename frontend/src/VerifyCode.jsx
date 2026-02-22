@@ -35,16 +35,20 @@ export default function VerifyCode() {
   return (
     <>
       <div className="verify-container">
+
+        {/* LEFT PANEL */}
         <div className="verify-left">
-          <div>
-            <h1>TaxPal</h1>
-            <h2>Simplify your taxes. Automate your finances.</h2>
+          <div className="branding">
+            <h2>TaxPal</h2>
+            <h3>Simplify your taxes. Automate your finances.</h3>
           </div>
         </div>
 
+        {/* RIGHT PANEL */}
         <div className="verify-right">
           <div className="verify-card">
-            <h2>Verify Code</h2>
+
+            <h3>Verify Code</h3>
             <p className="subtitle">
               Enter the 4-digit code sent to your email
             </p>
@@ -68,7 +72,11 @@ export default function VerifyCode() {
                 ))}
               </div>
 
-              <button type="submit" disabled={otp.join("").length !== 4}>
+              <button
+                type="submit"
+                className="primary-btn"
+                disabled={otp.join("").length !== 4}
+              >
                 Verify
               </button>
             </form>
@@ -80,71 +88,151 @@ export default function VerifyCode() {
             <Link to="/" className="back-link">
               Back to sign in
             </Link>
+
           </div>
         </div>
       </div>
 
       <style>{`
-        *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,sans-serif}
-        .verify-container{display:flex;height:100vh}
-        .verify-left{
-          flex:1;
-          background:linear-gradient(135deg,#1e3a8a,#4f46e5);
-          color:white;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          text-align:center;
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          font-family: "Inter", sans-serif;
         }
-        .verify-left h1{font-size:42px;margin-bottom:20px}
-        .verify-left h2{font-weight:500;font-size:20px}
-        .verify-right{
-          flex:1;
-          background:#f9fafb;
-          display:flex;
-          align-items:center;
-          justify-content:center;
+
+        .verify-container {
+          display: flex;
+          height: 100vh;
         }
-        .verify-card{
-          background:white;
-          padding:40px;
-          width:380px;
-          border-radius:12px;
-          box-shadow:0 10px 25px rgba(0,0,0,0.05);
-          text-align:center;
+
+        /* LEFT PANEL */
+        .verify-left {
+          flex: 1;
+          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 60px;
+          text-align: left;
         }
-        .subtitle{font-size:14px;color:#6b7280;margin-bottom:25px}
-        .otp-container{
-          display:flex;
-          justify-content:space-between;
-          margin-bottom:25px;
+
+        .branding {
+          max-width: 400px;
         }
-        .otp-container input{
-          width:60px;
-          height:55px;
-          font-size:22px;
-          text-align:center;
-          border-radius:8px;
-          border:1px solid #d1d5db;
+
+        .branding h2 {
+          font-size: 40px;
+          margin-bottom: 20px;
         }
-        button{
-          width:100%;
-          padding:12px;
-          border:none;
-          border-radius:8px;
-          background:${
-            otp.join("").length === 4 ? "#2563eb" : "#cbd5e1"
+
+        .branding h3 {
+          font-size: 22px;
+          font-weight: 500;
+        }
+
+        /* RIGHT PANEL */
+        .verify-right {
+          flex: 1;
+          background: #f9fafb;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .verify-card {
+          background: white;
+          padding: 40px;
+          width: 380px;
+          border-radius: 12px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+          text-align: left;
+        }
+
+        .verify-card h3 {
+          margin-bottom: 8px;
+        }
+
+        .subtitle {
+          font-size: 14px;
+          color: #6b7280;
+          margin-bottom: 25px;
+        }
+
+        .otp-container {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 25px;
+        }
+
+        .otp-container input {
+          width: 60px;
+          height: 55px;
+          font-size: 22px;
+          text-align: center;
+          border-radius: 8px;
+          border: 1px solid #d1d5db;
+          outline: none;
+          transition: 0.2s ease;
+        }
+
+        .otp-container input:focus {
+          border-color: #4f46e5;
+          box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+        }
+
+        .primary-btn {
+          width: 100%;
+          padding: 12px;
+          border: none;
+          border-radius: 8px;
+          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
+          color: white;
+          font-weight: 500;
+          cursor: pointer;
+          transition: 0.3s ease;
+          margin-bottom: 20px;
+          opacity: ${
+            otp.join("").length === 4 ? "1" : "0.6"
           };
-          color:white;
-          cursor:${
-            otp.join("").length === 4 ? "pointer" : "not-allowed"
-          };
-          margin-bottom:20px;
         }
-        .resend{font-size:14px;color:#6b7280;margin-bottom:10px}
-        .resend span{color:#2563eb;cursor:pointer}
-        .back-link{text-decoration:none;color:#2563eb;font-size:14px}
-        @media(max-width:900px){.verify-left{display:none}}
+
+        .primary-btn:hover {
+          opacity: 0.9;
+        }
+
+        .primary-btn:disabled {
+          cursor: not-allowed;
+        }
+
+        .resend {
+          font-size: 14px;
+          color: #6b7280;
+          margin-bottom: 10px;
+        }
+
+        .resend span {
+          color: #2563eb;
+          cursor: pointer;
+          font-weight: 500;
+        }
+
+        .back-link {
+          font-size: 14px;
+          text-decoration: none;
+          color: #2563eb;
+        }
+
+        .back-link:hover {
+          text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+          .verify-left {
+            display: none;
+          }
+        }
       `}</style>
     </>
   );
