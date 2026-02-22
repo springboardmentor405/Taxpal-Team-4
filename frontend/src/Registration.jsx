@@ -19,18 +19,14 @@ export default function Register() {
         <h3 className="fw-semibold mb-3">
           Start managing your finances smarter today
         </h3>
-        {/* <p style={{ maxWidth: "420px", opacity: 0.9 }}>
-          Create your account to generate invoices, track taxes,
-          and gain financial insights in minutes.
-        </p> */}
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px",textAlign: "left" }}>
+        <div style={{ width: "380px", textAlign: "left" }}>
 
           <h3 className="fw-bold mb-2">Create your account</h3>
-          <p className="small text-muted" style={{ textAlign: "left" }}>
+          <p className="text-muted mb-4">
             It takes less than a minute to get started
           </p>
 
@@ -75,23 +71,34 @@ export default function Register() {
               </span>
             </div>
 
+            {/* 🔥 Gradient Button */}
             <button
-  className="w-100 py-2 mb-3 text-white border-0"
-  style={{
-    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
-    cursor: "pointer",
-  }}
->
-  Sign in
-  </button>
+              type="submit"
+              className="w-100 py-2 mb-3 text-white border-0"
+              style={{
+                borderRadius: "8px",
+                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+                cursor: "pointer",
+                transition: "0.3s ease"
+              }}
+              onMouseOver={(e) =>
+                (e.target.style.opacity = "0.9")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.opacity = "1")
+              }
+            >
+              Sign up
+            </button>
           </form>
 
-          <p className="text-center small text-muted">
+          <p className="small text-muted" style={{ textAlign: "left" }}>
             Already registered?{" "}
             <Link to="/" className="fw-semibold">
               Sign in
             </Link>
           </p>
+
         </div>
       </div>
     </div>

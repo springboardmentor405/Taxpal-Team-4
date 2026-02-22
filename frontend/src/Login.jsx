@@ -18,15 +18,11 @@ export default function Login() {
         <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
         </h3>
-        {/* <p style={{ maxWidth: "420px", opacity: 0.9 }}>
-          A modern platform to manage invoices, tax reports, and financial insights —
-          built for professionals and businesses.
-        </p> */}
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-         <div style={{ width: "380px",textAlign: "left" }}>
+        <div style={{ width: "380px", textAlign: "left" }}>
 
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
@@ -71,22 +67,39 @@ export default function Login() {
                 Remember me
               </div>
 
-              {/* ✅ WORKING FORGOT LINK */}
               <Link to="/forgot-password" className="text-decoration-none">
                 Forgot password?
               </Link>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
+            {/* 🔥 Custom Gradient Button */}
+            <button
+              type="submit"
+              className="w-100 py-2 mb-3 text-white border-0"
+              style={{
+                borderRadius: "8px",
+                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+                cursor: "pointer",
+                transition: "0.3s ease"
+              }}
+              onMouseOver={(e) =>
+                (e.target.style.opacity = "0.9")
+              }
+              onMouseOut={(e) =>
+                (e.target.style.opacity = "1")
+              }
+            >
               Sign in
             </button>
           </form>
-  
-          <p className="small text-muted" style={{ textAlign: "left" }}>            Don’t have an account?{" "}
+
+          <p className="small text-muted" style={{ textAlign: "left" }}>
+            Don’t have an account?{" "}
             <Link to="/register" className="fw-semibold">
               Create one
             </Link>
           </p>
+
         </div>
       </div>
     </div>
