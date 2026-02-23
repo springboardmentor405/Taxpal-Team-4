@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/dashboard");
+  };
 
   return (
     <div className="d-flex vh-100">
-
       {/* Left panel */}
       <div
         className="d-none d-lg-flex flex-column justify-content-center text-white p-5"
@@ -28,13 +33,12 @@ export default function Login() {
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
         <div style={{ width: "380px" }}>
-
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
             Enter your credentials to access your dashboard
           </p>
 
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="mb-3">
               <label className="form-label fw-semibold">Email address</label>
               <input
@@ -71,26 +75,41 @@ export default function Login() {
                 <input type="checkbox" className="me-1" />
                 Remember me
               </div>
+
               <Link
-  to="/forgot-password"
-  style={{ textDecoration: "none", color: "#4f46e5", fontWeight: "600" }}
->
-  Forgot password?
-</Link>
+                to="/forgot-password"
+                style={{
+                  textDecoration: "none",
+                  color: "#4f46e5",
+                  fontWeight: "600"
+                }}
+              >
+                Forgot password?
+              </Link>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
+            <button
+              type="submit"
+              className="btn btn-primary w-100 py-2 mb-3"
+            >
               Sign in
             </button>
           </form>
 
           <p className="small text-muted" style={{ textAlign: "left" }}>
             Don’t have an account?{" "}
-            <Link to="/register" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
+            <Link
+              to="/register"
+              className="fw-semibold"
+              style={{
+                color: "#4f46e5",
+                fontWeight: "600",
+                textDecoration: "none"
+              }}
+            >
               Create one
             </Link>
           </p>
-
         </div>
       </div>
     </div>

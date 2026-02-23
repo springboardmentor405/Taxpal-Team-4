@@ -4,6 +4,7 @@ import Register from "./Registration";
 import ForgotPassword from './ForgetPassword';
 import VerificationCode from "./VerificationCode";
 import ResetPassword from './ResetPassword';
+import Dashboard from "./Dashboard";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword></ForgotPassword>} />
         <Route path="/verify-code" element={<VerificationCode />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
