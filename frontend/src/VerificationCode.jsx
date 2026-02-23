@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function VerificationCode() {
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const navigate = useNavigate(); // ✅ Added
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;
@@ -11,23 +12,26 @@ export default function VerificationCode() {
     newOtp[index] = element.value;
     setOtp(newOtp);
 
-    // Auto focus next input
     if (element.nextSibling && element.value !== "") {
       element.nextSibling.focus();
     }
   };
 
-  return (
-   <div
-  className="d-flex"
-  style={{
-    position: "fixed",
-    inset: 0,          // top:0 left:0 right:0 bottom:0
-    width: "100vw",
-    height: "100vh"
-  }}
->
+  // ✅ Added verify handler
+  const handleVerify = () => {
+    navigate("/reset-password");
+  };
 
+  return (
+    <div
+      className="d-flex"
+      style={{
+        position: "fixed",
+        inset: 0,
+        width: "100vw",
+        height: "100vh"
+      }}
+    >
       {/* Left Panel */}
       <div
         className="d-none d-lg-flex flex-column justify-content-center align-items-center text-white p-5"
@@ -43,10 +47,7 @@ export default function VerificationCode() {
       </div>
 
       {/* Right Panel */}
-      <div
-        className="flex-fill d-flex justify-content-center align-items-center"
-       
-      >
+      <div className="flex-fill d-flex justify-content-center align-items-center">
         <div
           className="p-4 text-center"
           style={{
@@ -61,7 +62,6 @@ export default function VerificationCode() {
             Enter the 4-digit code sent to your email
           </p>
 
-          {/* OTP Boxes */}
           <div className="d-flex justify-content-between mb-4">
             {otp.map((data, index) => (
               <input
@@ -81,8 +81,9 @@ export default function VerificationCode() {
             ))}
           </div>
 
-          {/* Verify Button */}
+          {/* ✅ Navigation Added Here */}
           <button
+            onClick={handleVerify}
             className="w-100 py-2 mb-3 text-white"
             style={{
               background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
@@ -101,7 +102,10 @@ export default function VerificationCode() {
             </span>
           </p>
 
-          <Link to="/" style={{ fontSize: "13px", textDecoration: "none" ,color: "#4f46e5"}}>
+          <Link
+            to="/"
+            style={{ fontSize: "13px", textDecoration: "none", color: "#4f46e5" }}
+          >
             Back to Sign in
           </Link>
         </div>

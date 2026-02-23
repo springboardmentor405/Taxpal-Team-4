@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 export default function ForgotPassword() {
+    const navigate = useNavigate();
   return (
     <div
   className="d-flex"

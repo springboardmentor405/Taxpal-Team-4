@@ -71,7 +71,12 @@ export default function Login() {
                 <input type="checkbox" className="me-1" />
                 Remember me
               </div>
-              <span style={{ cursor: "pointer" }}>Forgot password?</span>
+              <Link
+  to="/forgot-password"
+  style={{ textDecoration: "none", color: "#4f46e5", fontWeight: "600" }}
+>
+  Forgot password?
+</Link>
             </div>
 
             <button className="btn btn-primary w-100 py-2 mb-3">
