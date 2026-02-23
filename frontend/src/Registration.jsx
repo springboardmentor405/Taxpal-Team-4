@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  return (
-    <div className="d-flex vh-100">
+  return (<div
+  className="d-flex"
+  style={{
+    position: "fixed",
+    inset: 0,          // top:0 left:0 right:0 bottom:0
+    width: "100vw",
+    height: "100vh"
+  }}
+>
 
       {/* Left panel */}
       <div
@@ -23,7 +31,7 @@ export default function Register() {
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px", textAlign: "left" }}>
+        <div style={{ width: "380px" }}>
 
           <h3 className="fw-bold mb-2">Create your account</h3>
           <p className="text-muted mb-4">
@@ -31,8 +39,12 @@ export default function Register() {
           </p>
 
           <form>
+
+            {/* Full Name */}
             <div className="mb-3">
-              <label className="form-label fw-semibold">Full name</label>
+              <label className="form-label fw-semibold d-block">
+                Full name
+              </label>
               <input
                 type="text"
                 className="form-control py-2"
@@ -40,8 +52,11 @@ export default function Register() {
               />
             </div>
 
+            {/* Email */}
             <div className="mb-3">
-              <label className="form-label fw-semibold">Email address</label>
+              <label className="form-label fw-semibold d-block">
+                Email address
+              </label>
               <input
                 type="email"
                 className="form-control py-2"
@@ -49,12 +64,15 @@ export default function Register() {
               />
             </div>
 
+            {/* Password */}
             <div className="mb-3 position-relative">
-              <label className="form-label fw-semibold">Password</label>
+              <label className="form-label fw-semibold d-block">
+                Password
+              </label>
               <input
                 type={showPassword ? "text" : "password"}
                 className="form-control py-2"
-                placeholder="Create a strong password"
+                placeholder="Enter password"
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -64,37 +82,22 @@ export default function Register() {
                   top: "38px",
                   cursor: "pointer",
                   fontSize: "13px",
-                  color: "#555"
+                  color: "#1e3a8a",
+                  fontWeight: "500"
                 }}
               >
                 {showPassword ? "Hide" : "Show"}
               </span>
             </div>
 
-            {/* 🔥 Gradient Button */}
-            <button
-              type="submit"
-              className="w-100 py-2 mb-3 text-white border-0"
-              style={{
-                borderRadius: "8px",
-                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
-                cursor: "pointer",
-                transition: "0.3s ease"
-              }}
-              onMouseOver={(e) =>
-                (e.target.style.opacity = "0.9")
-              }
-              onMouseOut={(e) =>
-                (e.target.style.opacity = "1")
-              }
-            >
-              Sign up
+            <button className="btn btn-primary w-100 py-2 mb-3">
+              Create account
             </button>
           </form>
 
           <p className="small text-muted" style={{ textAlign: "left" }}>
             Already registered?{" "}
-            <Link to="/" className="fw-semibold">
+            <Link to="/" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
               Sign in
             </Link>
           </p>

@@ -1,220 +1,130 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function Register() {
+export default function ResetPassword() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <>
-      <div className="auth-container">
+    <div
+  className="d-flex"
+  style={{
+    position: "fixed",
+    inset: 0,          // top:0 left:0 right:0 bottom:0
+    width: "100vw",
+    height: "100vh"
+  }}
+>
 
-        {/* LEFT PANEL */}
-        <div className="auth-left">
-          <div className="branding">
-            <h2>TaxPal</h2>
-            <h3>Start managing your finances smarter today</h3>
-          </div>
-        </div>
-
-        {/* RIGHT PANEL */}
-        <div className="auth-right">
-          <div className="auth-card">
-
-            <h3>Create your account</h3>
-            <p className="subtitle">
-              It takes less than a minute to get started
-            </p>
-
-            <form>
-              <div className="form-group">
-                <label>Full name</label>
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Email address</label>
-                <input
-                  type="email"
-                  placeholder="name@company.com"
-                />
-              </div>
-
-              <div className="form-group password-group">
-                <label>Password</label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Create a strong password"
-                />
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="toggle"
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </span>
-              </div>
-
-              <button type="submit" className="primary-btn">
-                Sign up
-              </button>
-            </form>
-
-            <p className="bottom-text">
-              Already registered?{" "}
-              <Link to="/">Sign in</Link>
-            </p>
-
-          </div>
-        </div>
+      {/* Left Panel */}
+      <div
+        className="d-none d-lg-flex flex-column justify-content-center align-items-center text-white p-5"
+        style={{
+          width: "50%",
+          background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
+        }}
+      >
+        <h1 className="fw-bold mb-3">TaxPal</h1>
+        <h5 className="fw-semibold text-center">
+          Secure password reset
+        </h5>
       </div>
 
-      <style>{`
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-          font-family: "Inter", sans-serif;
-        }
+      {/* Right Panel */}
+      <div
+        className="flex-fill d-flex justify-content-center align-items-center"
+       
+      >
+        <div
+          className="p-4"
+          style={{
+            width: "380px",
+            background: "#fff",
+            borderRadius: "10px",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.08)"
+          }}
+        >
+          <h4 className="fw-bold text-center mb-3">
+            Reset Password
+          </h4>
 
-        .auth-container {
-          display: flex;
-          height: 100vh;
-        }
+          <p className="text-muted text-center mb-4" style={{ fontSize: "14px" }}>
+            Create a new secure password for your account.
+          </p>
 
-        /* LEFT PANEL */
-        .auth-left {
-          flex: 1;
-          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 60px;
-          text-align: left;
-        }
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }} className="text-start"
+          >
+            {/* New Password */}
+            <div className="mb-3 position-relative" >
+              <label className="form-label fw-semibold" >
+                New Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control py-2"
+                placeholder="Enter new password"
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "38px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: "#4f46e5"
+                }}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
 
-        .branding {
-          max-width: 400px;
-        }
+            {/* Confirm Password */}
+            <div className="mb-3 position-relative">
+              <label className="form-label fw-semibold">
+                Confirm Password
+              </label>
+              <input
+                type={showConfirm ? "text" : "password"}
+                className="form-control py-2"
+                placeholder="Confirm new password"
+              />
+              <span
+                onClick={() => setShowConfirm(!showConfirm)}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "38px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: "#4f46e5"
+                }}
+              >
+                {showConfirm ? "Hide" : "Show"}
+              </span>
+            </div>
 
-        .branding h2 {
-          font-size: 40px;
-          margin-bottom: 20px;
-        }
-
-        .branding h3 {
-          font-size: 22px;
-          font-weight: 500;
-        }
-
-        /* RIGHT PANEL */
-        .auth-right {
-          flex: 1;
-          background: #f9fafb;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .auth-card {
-          background: white;
-          padding: 40px;
-          width: 380px;
-          border-radius: 12px;
-          box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-          text-align: left;
-        }
-
-        .auth-card h3 {
-          margin-bottom: 8px;
-        }
-
-        .subtitle {
-          font-size: 14px;
-          color: #6b7280;
-          margin-bottom: 25px;
-        }
-
-        .form-group {
-          margin-bottom: 18px;
-          display: flex;
-          flex-direction: column;
-        }
-
-        label {
-          font-size: 14px;
-          margin-bottom: 6px;
-          font-weight: 500;
-        }
-
-        input {
-          padding: 12px;
-          border-radius: 8px;
-          border: 1px solid #d1d5db;
-          outline: none;
-          font-size: 14px;
-          transition: 0.2s ease;
-        }
-
-        input:focus {
-          border-color: #4f46e5;
-          box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
-        }
-
-        .password-group {
-          position: relative;
-        }
-
-        .toggle {
-          position: absolute;
-          right: 12px;
-          top: 38px;
-          cursor: pointer;
-          font-size: 13px;
-          color: #555;
-        }
-
-        .primary-btn {
-          width: 100%;
-          padding: 12px;
-          border: none;
-          border-radius: 8px;
-          background: linear-gradient(135deg,#1e3a8a,#4f46e5);
-          color: white;
-          font-weight: 500;
-          cursor: pointer;
-          transition: 0.3s ease;
-          margin-top: 10px;
-        }
-
-        .primary-btn:hover {
-          opacity: 0.9;
-        }
-
-        .bottom-text {
-          margin-top: 20px;
-          font-size: 14px;
-          color: #6b7280;
-        }
-
-        .bottom-text a {
-          color: #2563eb;
-          font-weight: 500;
-          text-decoration: none;
-        }
-
-        .bottom-text a:hover {
-          text-decoration: underline;
-        }
-
-        @media (max-width: 900px) {
-          .auth-left {
-            display: none;
-          }
-        }
-      `}</style>
-    </>
+            <button
+              type="submit"
+              className="w-100 py-2 mb-3 text-white"
+              style={{
+                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: "600"
+              }}
+            >
+              Reset Password
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
