@@ -1,194 +1,181 @@
 import React from "react";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend
+  CartesianGrid
 } from "recharts";
+import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 export default function Dashboard() {
-  const incomeExpenseData = [
-    { month: "Jan", income: 3500, expense: 2200 },
-    { month: "Feb", income: 4800, expense: 1800 },
-    { month: "Mar", income: 3200, expense: 2500 },
-    { month: "Apr", income: 6000, expense: 2300 }
+  const salesData = [
+    { name: "Jan", sales: 20 },
+    { name: "Feb", sales: 40 },
+    { name: "Mar", sales: 30 },
+    { name: "Apr", sales: 60 },
+    { name: "May", sales: 45 },
+    { name: "Jun", sales: 70 },
+    { name: "Jul", sales: 55 }
   ];
-
-  const expenseBreakdown = [
-    { name: "Rent", value: 60 },
-    { name: "Marketing", value: 15 },
-    { name: "Utilities", value: 9 },
-    { name: "Tools", value: 7 },
-    { name: "Other", value: 5 }
-  ];
-
-  const COLORS = ["#4f46e5", "#ef4444", "#f97316", "#22c55e", "#3b82f6"];
 
   return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "Inter, sans-serif" }}>
+    <div style={{ display: "flex", height: "100vh", fontFamily: "Inter, sans-serif", background: "#f5f6fa" }}>
+      
+      {/* SIDEBAR */}
+      <div style={{
+        width: "240px",
+        background: "#ffffff",
+        padding: "30px 20px",
+        borderRight: "1px solid #e5e7eb"
+      }}>
+        <h2 style={{ color: "#4f46e5", marginBottom: "40px" }}>DashStack</h2>
 
-      {/* Sidebar */}
-      <div
-        style={{
-          width: "250px",
-          background: "#f3f4f6",
-          padding: "30px"
-        }}
-      >
-        <h2 style={{ color: "#1e3a8a", marginBottom: "40px" }}>TaxPal</h2>
+        <SidebarItem text="Dashboard" active />
+        <SidebarItem text="Products" />
+        <SidebarItem text="Favorites" />
+        <SidebarItem text="Inbox" />
+        <SidebarItem text="Order Lists" />
+        <SidebarItem text="Product Stock" />
 
-        <p style={{ fontSize: "13px", color: "#6b7280", marginBottom: "10px" }}>MAIN</p>
-        <div style={menuItemActive}>Dashboard</div>
-        <div style={menuItem}>Transactions</div>
-        <div style={menuItem}>Budgets</div>
+        <p style={{ marginTop: "30px", fontSize: "12px", color: "#9ca3af" }}>PAGES</p>
 
-        <p style={{ fontSize: "13px", color: "#6b7280", margin: "20px 0 10px" }}>FINANCE</p>
-        <div style={menuItem}>Tax Estimator</div>
-        <div style={menuItem}>Reports</div>
-
-        <p style={{ fontSize: "13px", color: "#6b7280", margin: "20px 0 10px" }}>ACCOUNT</p>
-        <div style={menuItem}>Settings</div>
+        <SidebarItem text="Pricing" />
+        <SidebarItem text="Calendar" />
+        <SidebarItem text="To-Do" />
+        <SidebarItem text="Contact" />
+        <SidebarItem text="Invoice" />
+        <SidebarItem text="UI Elements" />
+        <SidebarItem text="Team" />
+        <SidebarItem text="Table" />
       </div>
 
-      {/* Main Content */}
-      <div style={{ flex: 1, padding: "40px", background: "#f9fafb", overflowY: "auto" }}>
+      {/* MAIN AREA */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
 
-        {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "30px" }}>
-          <h1>Financial Dashboard</h1>
-
-          <div style={{ display: "flex", gap: "15px" }}>
-            <button
+        {/* TOP NAVBAR */}
+        <div style={{
+          height: "70px",
+          background: "#ffffff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 30px",
+          borderBottom: "1px solid #e5e7eb"
+        }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            background: "#f3f4f6",
+            padding: "8px 15px",
+            borderRadius: "8px",
+            width: "300px"
+          }}>
+            <FiSearch style={{ marginRight: "8px", color: "#6b7280" }} />
+            <input
+              type="text"
+              placeholder="Search"
               style={{
-                background: "none",
                 border: "none",
-                color: "#2563eb",
-                cursor: "pointer",
-                fontWeight: 500
+                outline: "none",
+                background: "transparent",
+                width: "100%"
               }}
-            >
-              + Record Income
-            </button>
+            />
+          </div>
 
-            <button
-              style={{
-                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
-                color: "white",
-                border: "none",
-                padding: "8px 15px",
-                borderRadius: "8px",
-                cursor: "pointer"
-              }}
-            >
-              - Record Expense
-            </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <FaBell style={{ color: "#6b7280", cursor: "pointer" }} />
+            <span style={{ fontSize: "14px", color: "#6b7280" }}>English</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <FaUserCircle size={22} />
+              <div>
+                <div style={{ fontSize: "14px" }}>Moni Roy</div>
+                <div style={{ fontSize: "12px", color: "#9ca3af" }}>Admin</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Charts */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "30px" }}>
+        {/* DASHBOARD CONTENT */}
+        <div style={{ padding: "30px" }}>
+          <h2 style={{ marginBottom: "20px" }}>Dashboard</h2>
 
-          {/* Bar Chart */}
-          <div style={cardStyle}>
-            <h3 style={{ marginBottom: "20px" }}>Income vs Expenses</h3>
+          {/* STAT CARDS */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px", marginBottom: "30px" }}>
+            <StatCard title="Total User" value="40,689" trend="+8.5%" positive />
+            <StatCard title="Total Order" value="10,293" trend="+1.3%" positive />
+            <StatCard title="Total Sales" value="$89,000" trend="-4.3%" />
+            <StatCard title="Total Pending" value="2040" trend="+1.8%" positive />
+          </div>
+
+          {/* SALES CHART */}
+          <div style={{
+            background: "#ffffff",
+            padding: "25px",
+            borderRadius: "12px",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.05)"
+          }}>
+            <h3 style={{ marginBottom: "20px" }}>Sales Details</h3>
+
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={incomeExpenseData}>
-                <XAxis dataKey="month" />
+              <LineChart data={salesData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="expense" fill="#ef4444" />
-                <Bar dataKey="income" fill="#22c55e" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          {/* Pie Chart */}
-          <div style={cardStyle}>
-            <h3 style={{ marginBottom: "20px" }}>Expense Breakdown</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={expenseBreakdown} dataKey="value" outerRadius={100}>
-                  {expenseBreakdown.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
+                <Line
+                  type="monotone"
+                  dataKey="sales"
+                  stroke="#4f46e5"
+                  strokeWidth={3}
+                />
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
-
-        {/* Transactions */}
-        <div style={cardStyle}>
-          <h3 style={{ marginBottom: "20px" }}>Recent Transactions</h3>
-
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr style={{ color: "#6b7280", fontSize: "14px" }}>
-                <th style={thStyle}>Date</th>
-                <th style={thStyle}>Description</th>
-                <th style={thStyle}>Category</th>
-                <th style={thStyle}>Amount</th>
-                <th style={thStyle}>Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={tdStyle}>May 5, 2025</td>
-                <td style={tdStyle}>Marketing Tools</td>
-                <td style={tdStyle}>Marketing</td>
-                <td style={{ ...tdStyle, color: "#ef4444" }}>-$75.00</td>
-                <td style={{ ...tdStyle, color: "#ef4444" }}>expense</td>
-              </tr>
-              <tr>
-                <td style={tdStyle}>Apr 15, 2025</td>
-                <td style={tdStyle}>Blog Revenue</td>
-                <td style={tdStyle}>Freelance</td>
-                <td style={{ ...tdStyle, color: "#22c55e" }}>+$420.00</td>
-                <td style={{ ...tdStyle, color: "#22c55e" }}>income</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
       </div>
     </div>
   );
 }
 
-/* Inline style objects */
-const menuItem = {
-  padding: "10px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  marginBottom: "8px"
-};
+/* COMPONENTS */
 
-const menuItemActive = {
-  ...menuItem,
-  background: "#c7d2fe",
-  color: "#1e3a8a"
-};
+function SidebarItem({ text, active }) {
+  return (
+    <div style={{
+      padding: "10px",
+      borderRadius: "8px",
+      marginBottom: "8px",
+      cursor: "pointer",
+      background: active ? "#4f46e5" : "transparent",
+      color: active ? "white" : "#374151",
+      fontWeight: active ? 500 : 400
+    }}>
+      {text}
+    </div>
+  );
+}
 
-const cardStyle = {
-  background: "white",
-  padding: "25px",
-  borderRadius: "12px",
-  boxShadow: "0 10px 25px rgba(0,0,0,0.05)"
-};
-
-const thStyle = {
-  textAlign: "left",
-  padding: "10px 8px"
-};
-
-const tdStyle = {
-  padding: "10px 8px"
-};
+function StatCard({ title, value, trend, positive }) {
+  return (
+    <div style={{
+      background: "#ffffff",
+      padding: "20px",
+      borderRadius: "12px",
+      boxShadow: "0 5px 15px rgba(0,0,0,0.05)"
+    }}>
+      <div style={{ fontSize: "13px", color: "#9ca3af" }}>{title}</div>
+      <div style={{ fontSize: "22px", fontWeight: 600, margin: "10px 0" }}>{value}</div>
+      <div style={{
+        fontSize: "13px",
+        color: positive ? "#10b981" : "#ef4444"
+      }}>
+        {trend} {positive ? "Up from yesterday" : "Down from yesterday"}
+      </div>
+    </div>
+  );
+}
