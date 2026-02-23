@@ -5,7 +5,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="d-flex vh-100">
+ <div
+  className="d-flex"
+  style={{
+    position: "fixed",
+    inset: 0,          // top:0 left:0 right:0 bottom:0
+    width: "100vw",
+    height: "100vh"
+  }}
+>
 
       {/* Left panel */}
       <div
@@ -19,15 +27,12 @@ export default function Login() {
         <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
         </h3>
-        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
-          A modern platform to manage invoices, tax reports, and financial insights —
-          built for professionals and businesses.
-        </p>
+     
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px" }}>
+       <div style={{ width: "380px" }} className="text-start">
 
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
@@ -71,17 +76,34 @@ export default function Login() {
                 <input type="checkbox" className="me-1" />
                 Remember me
               </div>
-              <span style={{ cursor: "pointer" }}>Forgot password?</span>
+              <Link
+  to="/forgot-password"
+  style={{
+    textDecoration: "none",
+    color: "#4f46e5",
+    fontWeight: "500"
+  }}
+>
+  Forgot password?
+</Link>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
-              Sign in
-            </button>
+          <button
+  className="w-100 py-2 mb-3 text-white"
+  style={{
+    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "600"
+  }}
+>
+  Sign in
+</button>
           </form>
 
           <p className="text-center small text-muted">
             Don’t have an account?{" "}
-            <Link to="/register" className="fw-semibold">
+            <Link to="/register" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
               Create one
             </Link>
           </p>

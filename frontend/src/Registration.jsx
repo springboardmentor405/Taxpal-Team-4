@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  return (
-    <div className="d-flex vh-100">
+  return (<div
+  className="d-flex"
+  style={{
+    position: "fixed",
+    inset: 0,          // top:0 left:0 right:0 bottom:0
+    width: "100vw",
+    height: "100vh"
+  }}
+>
 
       {/* Left panel */}
       <div
@@ -19,15 +27,11 @@ export default function Register() {
         <h3 className="fw-semibold mb-3">
           Start managing your finances smarter today
         </h3>
-        <p style={{ maxWidth: "420px", opacity: 0.9 }}>
-          Create your account to generate invoices, track taxes,
-          and gain financial insights in minutes.
-        </p>
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-        <div style={{ width: "380px" }}>
+        <div style={{ width: "380px" }} className="text-start">
 
           <h3 className="fw-bold mb-2">Create your account</h3>
           <p className="text-muted mb-4">
@@ -35,8 +39,12 @@ export default function Register() {
           </p>
 
           <form>
+
+            {/* Full Name */}
             <div className="mb-3">
-              <label className="form-label fw-semibold">Full name</label>
+              <label className="form-label fw-semibold d-block">
+                Full name
+              </label>
               <input
                 type="text"
                 className="form-control py-2"
@@ -44,8 +52,11 @@ export default function Register() {
               />
             </div>
 
+            {/* Email */}
             <div className="mb-3">
-              <label className="form-label fw-semibold">Email address</label>
+              <label className="form-label fw-semibold d-block">
+                Email address
+              </label>
               <input
                 type="email"
                 className="form-control py-2"
@@ -53,12 +64,15 @@ export default function Register() {
               />
             </div>
 
+            {/* Password */}
             <div className="mb-3 position-relative">
-              <label className="form-label fw-semibold">Password</label>
+              <label className="form-label fw-semibold d-block">
+                Password
+              </label>
               <input
                 type={showPassword ? "text" : "password"}
                 className="form-control py-2"
-                placeholder="Create a strong password"
+                placeholder="Enter password"
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -68,21 +82,59 @@ export default function Register() {
                   top: "38px",
                   cursor: "pointer",
                   fontSize: "13px",
-                  color: "#555"
+                  color: "#1e3a8a",
+                  fontWeight: "500"
                 }}
               >
                 {showPassword ? "Hide" : "Show"}
               </span>
             </div>
 
-            <button className="btn btn-primary w-100 py-2 mb-3">
-              Create account
-            </button>
+            {/* Confirm Password */}
+            <div className="mb-3 position-relative">
+              <label className="form-label fw-semibold d-block">
+                Confirm Password
+              </label>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className="form-control py-2"
+                placeholder="Re-enter your password"
+              />
+              <span
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "38px",
+                  cursor: "pointer",
+                  fontSize: "13px",
+                  color: "#1e3a8a",
+                  fontWeight: "500"
+                }}
+              >
+                {showConfirmPassword ? "Hide" : "Show"}
+              </span>
+            </div>
+
+            {/* Button */}
+           <button
+  className="w-100 py-2 mb-3 text-white"
+  style={{
+    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "600"
+  }}
+>
+  Create account
+</button>
           </form>
 
           <p className="text-center small text-muted">
             Already registered?{" "}
-            <Link to="/" className="fw-semibold">
+            <Link to="/" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
               Sign in
             </Link>
           </p>
