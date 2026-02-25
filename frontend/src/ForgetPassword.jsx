@@ -20,9 +20,9 @@ export default function ForgotPassword() {
       >
         <h1 className="fw-bold mb-3">TaxPal</h1>
 
-        <h5 className="fw-semibold mb-3 fs-4">
+       <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
-        </h5>
+        </h3>
 
     
       </div>

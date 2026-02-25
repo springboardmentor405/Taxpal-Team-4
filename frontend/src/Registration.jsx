@@ -1,9 +1,28 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+const [name,setName]=useState("")
+const [email,setEmail]=useState("")
+const [password,setPassword]=useState("")
+const naviate=useNavigate()
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  axios.post('http://localhost:3001/register',{name,email,password})
+  .then(result=>{console.log(result)
+ naviate('/login') 
+})
+  .catch(err=>console.log(err))
+  
+}
+
+
 
   return (<div
   className="d-flex"
@@ -23,9 +42,9 @@ export default function Register() {
           background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
         }}
       >
-        <h2 className="fw-bold mb-3">TaxPal</h2>
+        <h1 className="fw-bold mb-3">TaxPal</h1>
         <h3 className="fw-semibold mb-3">
-          Start managing your finances smarter today
+          Simplify your taxes. Automate your finances.
         </h3>
       </div>
 
@@ -38,7 +57,7 @@ export default function Register() {
             It takes less than a minute to get started
           </p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
 
             {/* Full Name */}
             <div className="mb-3">
@@ -49,6 +68,7 @@ export default function Register() {
                 type="text"
                 className="form-control py-2"
                 placeholder="Enter your name"
+                onChange={(e)=>setName(e.target.value)}
               />
             </div>
 
@@ -61,6 +81,7 @@ export default function Register() {
                 type="email"
                 className="form-control py-2"
                 placeholder="name@company.com"
+                 onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
 
@@ -73,6 +94,7 @@ export default function Register() {
                 type={showPassword ? "text" : "password"}
                 className="form-control py-2"
                 placeholder="Enter password"
+                 onChange={(e)=>setPassword(e.target.value)}
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -134,7 +156,7 @@ export default function Register() {
 
           <p className="text-center small text-muted">
             Already registered?{" "}
-            <Link to="/" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
+            <Link to="/login" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
               Sign in
             </Link>
           </p>

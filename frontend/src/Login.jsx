@@ -1,8 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+
+
+
+const [email,setEmail]=useState("")
+const [password,setPassword]=useState("")
+const navigate=useNavigate()
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  axios.post('http://localhost:3001/login',{email,password})
+  .then(result=>{console.log(result)
+    if(result.data==="success")
+    {
+ navigate('/home')
+    }else{
+      alert("Invalid credentials");
+    }
+
+})
+  .catch(err=>console.log(err))
+  
+}
+
+
+
 
   return (
  <div
@@ -23,7 +50,7 @@ export default function Login() {
           background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
         }}
       >
-        <h2 className="fw-bold mb-3">TaxPal</h2>
+        <h1 className="fw-bold mb-3">TaxPal</h1>
         <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
         </h3>
@@ -39,13 +66,14 @@ export default function Login() {
             Enter your credentials to access your dashboard
           </p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label className="form-label fw-semibold">Email address</label>
               <input
                 type="email"
                 className="form-control py-2"
                 placeholder="name@company.com"
+                onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
 
@@ -55,6 +83,7 @@ export default function Login() {
                 type={showPassword ? "text" : "password"}
                 className="form-control py-2"
                 placeholder="Enter password"
+                onChange={(e)=>setPassword(e.target.value)}
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
