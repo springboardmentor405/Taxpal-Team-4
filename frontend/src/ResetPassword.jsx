@@ -73,12 +73,13 @@ export default function ResetPassword() {
               <span
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
-                  position: "absolute",
+                   position: "absolute",
                   right: "12px",
                   top: "38px",
                   cursor: "pointer",
                   fontSize: "13px",
-                  color: "#4f46e5"
+                  color: "#1e3a8a",
+                  fontWeight: "500"
                 }}
               >
                 {showPassword ? "Hide" : "Show"}
@@ -98,12 +99,13 @@ export default function ResetPassword() {
               <span
                 onClick={() => setShowConfirm(!showConfirm)}
                 style={{
-                  position: "absolute",
+                 position: "absolute",
                   right: "12px",
                   top: "38px",
                   cursor: "pointer",
                   fontSize: "13px",
-                  color: "#4f46e5"
+                  color: "#1e3a8a",
+                  fontWeight: "500"
                 }}
               >
                 {showConfirm ? "Hide" : "Show"}

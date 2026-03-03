@@ -3,26 +3,65 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+
+
+const [confirmPassword, setConfirmPassword] = useState("");
+
+
 
 const [name,setName]=useState("")
 const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 const naviate=useNavigate()
 
-const handleSubmit=(e)=>{
+
+
+
+const isStrongPassword = (pwd) => {
+  const strongRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  return strongRegex.test(pwd);
+};
+
+const handleSubmit = (e) => {
   e.preventDefault();
-  axios.post('http://localhost:3001/register',{name,email,password})
-  .then(result=>{console.log(result)
- naviate('/login') 
-})
-  .catch(err=>console.log(err))
-  
-}
 
+  if (!name || !email || !password || !confirmPassword) {
+    toast.error("Please fill all fields");
+    return;
+  }
 
+  if (!isStrongPassword(password)) {
+    toast.error(
+      "Password must be 8+ chars, include uppercase, number & special character"
+    );
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    toast.error("Passwords do not match ❌");
+    return;
+  }
+
+  axios.post('http://localhost:3001/register', { name, email, password })
+    .then(result => {
+      toast.success("Account created successfully 🎉");
+      setTimeout(() => naviate('/login'), 1500);
+    })
+    .catch(err => {
+      console.log(err);
+      toast.error("Registration failed ❌");
+    });
+};
 
   return (<div
   className="d-flex"
@@ -95,7 +134,7 @@ const handleSubmit=(e)=>{
                 className="form-control py-2"
                 placeholder="Enter password"
                  onChange={(e)=>setPassword(e.target.value)}
-              />
+              />  
               <span
                 onClick={() => setShowPassword(!showPassword)}
                 style={{
@@ -117,11 +156,12 @@ const handleSubmit=(e)=>{
               <label className="form-label fw-semibold d-block">
                 Confirm Password
               </label>
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                className="form-control py-2"
-                placeholder="Re-enter your password"
-              />
+             <input
+  type={showConfirmPassword ? "text" : "password"}
+  className="form-control py-2"
+  placeholder="Re-enter your password"
+  onChange={(e)=>setConfirmPassword(e.target.value)}
+/>
               <span
                 onClick={() =>
                   setShowConfirmPassword(!showConfirmPassword)
@@ -162,6 +202,8 @@ const handleSubmit=(e)=>{
           </p>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
+
   );
 }

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,21 +15,23 @@ const [email,setEmail]=useState("")
 const [password,setPassword]=useState("")
 const navigate=useNavigate()
 
-const handleSubmit=(e)=>{
+const handleSubmit = (e) => {
   e.preventDefault();
-  axios.post('http://localhost:3001/login',{email,password})
-  .then(result=>{console.log(result)
-    if(result.data==="success")
-    {
- navigate('/home')
-    }else{
-      alert("Invalid credentials");
-    }
 
-})
-  .catch(err=>console.log(err))
-  
-}
+  axios.post("http://localhost:3001/login", { email, password })
+    .then(result => {
+      if (result.data === "success") {
+        toast.success("Login successful 🎉");
+        setTimeout(() => navigate("/home"), 1200);
+      } else {
+        toast.error("Invalid email or password ❌");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      toast.error("Server error. Try again later.");
+    });
+};
 
 
 
@@ -93,7 +98,8 @@ const handleSubmit=(e)=>{
                   top: "38px",
                   cursor: "pointer",
                   fontSize: "13px",
-                  color: "#555"
+                  color: "#1e3a8a",
+                  fontWeight: "500"
                 }}
               >
                 {showPassword ? "Hide" : "Show"}

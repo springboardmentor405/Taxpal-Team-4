@@ -3,3 +3,16 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
+/* Hide password eye icon in Edge / IE */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Hide password eye icon in Chrome */
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+}
