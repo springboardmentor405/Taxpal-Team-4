@@ -5,67 +5,63 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { ToastContainer } from "react-toastify";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    axios
+      .post("http://localhost:3001/login", { email, password })
+      .then((result) => {
+        if (result.data === "success") {
+          toast.success("Login successful 🎉");
 
-const [email,setEmail]=useState("")
-const [password,setPassword]=useState("")
-const navigate=useNavigate()
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  axios.post("http://localhost:3001/login", { email, password })
-    .then(result => {
-      if (result.data === "success") {
-        toast.success("Login successful 🎉");
-        setTimeout(() => navigate("/home"), 1200);
-      } else {
-        toast.error("Invalid email or password ❌");
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      toast.error("Server error. Try again later.");
-    });
-};
-
-
-
+          setTimeout(() => {
+            navigate("/home");
+          }, 1500);
+        } else {
+          toast.error("Invalid email or password ❌");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Server error. Try again later");
+      });
+  };
 
   return (
- <div
-  className="d-flex"
-  style={{
-    position: "fixed",
-    inset: 0,          // top:0 left:0 right:0 bottom:0
-    width: "100vw",
-    height: "100vh"
-  }}
->
-
+    <div
+      className="d-flex"
+      style={{
+        position: "fixed",
+        inset: 0, // top:0 left:0 right:0 bottom:0
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       {/* Left panel */}
       <div
         className="d-none d-lg-flex flex-column justify-content-center text-white p-5"
         style={{
           width: "50%",
-          background: "linear-gradient(135deg,#1e3a8a,#4f46e5)"
+          background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
         }}
       >
         <h1 className="fw-bold mb-3">TaxPal</h1>
         <h3 className="fw-semibold mb-3">
           Simplify your taxes. Automate your finances.
         </h3>
-     
       </div>
 
       {/* Right panel */}
       <div className="flex-fill d-flex justify-content-center align-items-center bg-light">
-       <div style={{ width: "380px" }} className="text-start">
-
+        <div style={{ width: "380px" }} className="text-start">
           <h3 className="fw-bold mb-2">Sign in to your account</h3>
           <p className="text-muted mb-4">
             Enter your credentials to access your dashboard
@@ -78,7 +74,7 @@ const handleSubmit = (e) => {
                 type="email"
                 className="form-control py-2"
                 placeholder="name@company.com"
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -88,7 +84,7 @@ const handleSubmit = (e) => {
                 type={showPassword ? "text" : "password"}
                 className="form-control py-2"
                 placeholder="Enter password"
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -99,7 +95,7 @@ const handleSubmit = (e) => {
                   cursor: "pointer",
                   fontSize: "13px",
                   color: "#1e3a8a",
-                  fontWeight: "500"
+                  fontWeight: "500",
                 }}
               >
                 {showPassword ? "Hide" : "Show"}
@@ -112,33 +108,41 @@ const handleSubmit = (e) => {
                 Remember me
               </div>
               <Link
-  to="/forgot-password"
-  style={{
-    textDecoration: "none",
-    color: "#4f46e5",
-    fontWeight: "500"
-  }}
->
-  Forgot password?
-</Link>
+                to="/forgot-password"
+                style={{
+                  textDecoration: "none",
+                  color: "#4f46e5",
+                  fontWeight: "500",
+                }}
+              >
+                Forgot password?
+              </Link>
             </div>
 
-          <button
-  className="w-100 py-2 mb-3 text-white"
-  style={{
-    background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
-    border: "none",
-    borderRadius: "8px",
-    fontWeight: "600"
-  }}
->
-  Sign in
-</button>
+            <button
+              className="w-100 py-2 mb-3 text-white"
+              style={{
+                background: "linear-gradient(135deg,#1e3a8a,#4f46e5)",
+                border: "none",
+                borderRadius: "8px",
+                fontWeight: "600",
+              }}
+            >
+              Sign in
+            </button>
           </form>
 
           <p className="text-center small text-muted">
             Don’t have an account?{" "}
-            <Link to="/register" className="fw-semibold"  style={{ color: "#4f46e5", fontWeight: "600", textDecoration: "none" }}>
+            <Link
+              to="/register"
+              className="fw-semibold"
+              style={{
+                color: "#4f46e5",
+                fontWeight: "600",
+                textDecoration: "none",
+              }}
+            >
               Create one
             </Link>
           </p>
