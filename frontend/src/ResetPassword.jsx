@@ -64,11 +64,14 @@ export default function ResetPassword() {
       </div>
 
       {/* RIGHT PANEL */}
-      <div className="flex-fill d-flex justify-content-center align-items-center">
+      <div
+        className="flex-fill d-flex justify-content-center align-items-center"
+        style={{ background: "#ffffff" }}
+      >
         <div
           className="p-4"
           style={{
-            width: "380px",  
+            width: "380px",
             background: "#fff",
             borderRadius: "10px",
           }}

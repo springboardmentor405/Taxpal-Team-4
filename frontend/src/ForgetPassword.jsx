@@ -48,7 +48,10 @@ export default function ForgotPassword() {
         </h3>
       </div>
 
-      <div className="flex-fill d-flex justify-content-center align-items-center">
+      <div
+        className="flex-fill d-flex justify-content-center align-items-center"
+        style={{ background: "#ffffff" }}
+      >
         <div
           className="p-4"
           style={{
