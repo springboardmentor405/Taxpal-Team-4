@@ -13,36 +13,38 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
- const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  axios
-    .post("http://localhost:3001/login", { email, password })
-   // REPLACE WITH:
-.then((result) => {
-  if (result.data.message === "success" || result.data === "success") {
-    toast.success("Login successful 🎉");
+    axios
+      .post("http://localhost:3001/login", { email, password })
+      .then((result) => {
+        // ── Check both old and new response format ──
+        if (result.data === "success" || result.data.message === "success") {
+          toast.success("Login successful 🎉");
 
-    // ── Save token + user ──
-    localStorage.setItem("taxpal_user", JSON.stringify({
-      name:  result.data.user?.name  || email.split("@")[0],
-      email: result.data.user?.email || email,
-      token: result.data.token       // ← token for API calls
-    }));
+          // ── Save token + user to localStorage ──
+          localStorage.setItem(
+            "taxpal_user",
+            JSON.stringify({
+              name: result.data.user?.name || email.split("@")[0],
+              email: result.data.user?.email || email,
+              token: result.data.token, // ← important for API calls!
+            }),
+          );
 
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
-
-  } else {
-    toast.error(result.data.message || "Invalid email or password ❌");
-  }
-})
-    .catch((err) => {
-      console.log(err);
-      toast.error("Server error. Try again later");
-    });
-};
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        } else {
+          toast.error(result.data.message || "Invalid email or password ❌");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Server error. Try again later");
+      });
+  };
 
   return (
     <div

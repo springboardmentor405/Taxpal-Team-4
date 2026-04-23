@@ -22,3 +22,20 @@ export const deleteBudget = (id)   => API.delete(`/api/budgets/${id}`);
 // Reports
 export const getReports     = ()     => API.get("/api/reports");
 export const generateReport = (data) => API.post("/api/reports", data);
+
+
+
+
+
+
+
+
+
+//setting // Settings
+export const getProfile           = ()     => API.get("/api/settings/profile");
+export const updateCategories     = (data) => API.put("/api/settings/categories",    data);
+export const updateNotifications  = (data) => API.put("/api/settings/notifications", data);
+export const update2FA            = (data) => API.put("/api/settings/2fa",           data);
+export const changePassword       = (data) => API.put("/api/settings/password",      data);
+
+export const updateProfile = (data) => API.put("/api/settings/profile", data);

@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
-import { getBudgets, createBudget, deleteBudget } from "../api/api";
+import {
+  getBudgets,
+  createBudget,
+  deleteBudget,
+  getTransactions,
+} from "../api/api";
 import { MdDelete } from "react-icons/md";
 
 const categories = [
@@ -20,6 +25,7 @@ const categories = [
 
 export default function Budgets() {
   const [budgets, setBudgets] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [month, setMonth] = useState("");
@@ -29,8 +35,10 @@ export default function Budgets() {
   const load = async () => {
     try {
       setLoading(true);
-      const res = await getBudgets();
-      setBudgets(res.data.data);
+      // ── Load both budgets AND transactions together ──
+      const [bRes, tRes] = await Promise.all([getBudgets(), getTransactions()]);
+      setBudgets(bRes.data.data);
+      setTransactions(tRes.data.data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -41,6 +49,29 @@ export default function Budgets() {
   useEffect(() => {
     load();
   }, []);
+
+  // ── Calculate how much spent in a category for a month ──
+  const getSpent = (category, month) => {
+    return transactions
+      .filter(
+        (t) =>
+          t.type === "expense" &&
+          t.category === category &&
+          t.date?.slice(0, 7) === month, // match "2025-01"
+      )
+      .reduce((sum, t) => sum + t.amount, 0);
+  };
+
+  // ── Get color based on percentage ──
+  const getColor = (percent) => {
+    if (percent >= 100)
+      return { bar: "#dc2626", bg: "#fee2e2", text: "#dc2626" }; // red
+    if (percent >= 75)
+      return { bar: "#f97316", bg: "#fff7ed", text: "#f97316" }; // orange
+    if (percent >= 50)
+      return { bar: "#eab308", bg: "#fefce8", text: "#ca8a04" }; // yellow
+    return { bar: "#16a34a", bg: "#dcfce7", text: "#16a34a" }; // green
+  };
 
   const saveBudget = async (e) => {
     e.preventDefault();
@@ -80,7 +111,7 @@ export default function Budgets() {
           Budget Planner
         </h4>
 
-        {/* Form */}
+        {/* ── Create Budget Form ── */}
         <div
           style={{
             background: "white",
@@ -142,7 +173,7 @@ export default function Budgets() {
                     marginBottom: 4,
                   }}
                 >
-                  Amount
+                  Amount (Budget Limit)
                 </label>
                 <input
                   type="number"
@@ -232,7 +263,7 @@ export default function Budgets() {
           </form>
         </div>
 
-        {/* Saved Budgets */}
+        {/* ── Budget Progress Cards ── */}
         <div
           style={{
             background: "white",
@@ -241,9 +272,10 @@ export default function Budgets() {
             boxShadow: "0 2px 8px rgba(0,0,0,.06)",
           }}
         >
-          <h6 style={{ fontWeight: 700, marginBottom: 14, fontSize: 15 }}>
-            Saved Budget
+          <h6 style={{ fontWeight: 700, marginBottom: 16, fontSize: 15 }}>
+            Budget vs Spending
           </h6>
+
           {loading ? (
             <div
               style={{
@@ -262,102 +294,192 @@ export default function Budgets() {
                 padding: "32px 0",
               }}
             >
-              No budgets saved yet.
+              No budgets saved yet. Create one above!
             </div>
           ) : (
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr
-                  style={{
-                    borderBottom: "2px solid #f1f5f9",
-                    background: "#fafafa",
-                  }}
-                >
-                  {["Category", "Amount", "Month", "Description", "Action"].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        style={{
-                          padding: "10px 14px",
-                          textAlign: "center",
-                          fontWeight: 700,
-                          fontSize: 13,
-                        }}
-                      >
-                        {h}
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {budgets.map((b, i) => (
-                  <tr
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {budgets.map((b) => {
+                const spent = getSpent(b.category, b.month);
+                const percent = Math.round((spent / b.amount) * 100);
+                const colors = getColor(percent);
+                const remaining = b.amount - spent;
+                const exceeded = spent > b.amount;
+
+                return (
+                  <div
                     key={b._id}
                     style={{
-                      borderBottom:
-                        i < budgets.length - 1 ? "1px solid #f1f5f9" : "none",
+                      background: colors.bg,
+                      borderRadius: 12,
+                      padding: 16,
+                      border: `1.5px solid ${colors.bar}22`,
                     }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = "#f8fafc")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = "white")
-                    }
                   >
-                    <td style={{ padding: "12px 14px", fontSize: 13 }}>
-                      {b.category}
-                    </td>
-                    <td
+                    {/* Top row */}
+                    <div
                       style={{
-                        padding: "12px 14px",
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "#16a34a",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 8,
                       }}
                     >
-                      +₹{b.amount.toLocaleString()}
-                    </td>
-                    <td
-                      style={{
-                        padding: "12px 14px",
-                        fontSize: 13,
-                        color: "#6b7280",
-                      }}
-                    >
-                      {b.month}
-                    </td>
-                    <td
-                      style={{
-                        padding: "12px 14px",
-                        fontSize: 13,
-                        color: "#6b7280",
-                      }}
-                    >
-                      {b.description || "—"}
-                    </td>
-                    <td style={{ padding: "12px 14px" }}>
-                      <button
-                        onClick={() => removeBudget(b._id)}
+                      <div
                         style={{
-                          background: "#fee2e2",
-                          border: "none",
-                          borderRadius: 8,
-                          width: 32,
-                          height: 32,
-                          cursor: "pointer",
-                          display: "inline-flex",
+                          display: "flex",
                           alignItems: "center",
-                          justifyContent: "center",
+                          gap: 10,
                         }}
                       >
-                        <MdDelete size={16} color="#dc2626" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <span style={{ fontWeight: 700, fontSize: 15 }}>
+                          {b.category}
+                        </span>
+                        <span style={{ fontSize: 11, color: "#6b7280" }}>
+                          {b.month}
+                        </span>
+                        {b.description && (
+                          <span style={{ fontSize: 11, color: "#9ca3af" }}>
+                            — {b.description}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Status badge */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                        }}
+                      >
+                        <span
+                          style={{
+                            padding: "3px 10px",
+                            borderRadius: 20,
+                            fontSize: 11,
+                            fontWeight: 700,
+                            background: colors.bar,
+                            color: "white",
+                          }}
+                        >
+                          {percent >= 100
+                            ? "❌ Exceeded"
+                            : percent >= 75
+                              ? "⚠️ Almost Full"
+                              : percent >= 50
+                                ? "🟡 Halfway"
+                                : "✅ Safe"}
+                        </span>
+
+                        {/* Delete button */}
+                        <button
+                          onClick={() => removeBudget(b._id)}
+                          style={{
+                            background: "#fee2e2",
+                            border: "none",
+                            borderRadius: 8,
+                            width: 28,
+                            height: 28,
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <MdDelete size={14} color="#dc2626" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div
+                      style={{
+                        background: "rgba(0,0,0,.08)",
+                        borderRadius: 10,
+                        height: 10,
+                        marginBottom: 8,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${Math.min(percent, 100)}%`,
+                          height: "100%",
+                          background: colors.bar,
+                          borderRadius: 10,
+                          transition: "width .5s ease",
+                        }}
+                      />
+                    </div>
+
+                    {/* Bottom row — amounts */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ display: "flex", gap: 20 }}>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#6b7280" }}>
+                            Spent
+                          </div>
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              fontSize: 14,
+                              color: colors.text,
+                            }}
+                          >
+                            ₹{spent.toLocaleString()}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#6b7280" }}>
+                            Budget
+                          </div>
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              fontSize: 14,
+                              color: "#1e3a8a",
+                            }}
+                          >
+                            ₹{b.amount.toLocaleString()}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 10, color: "#6b7280" }}>
+                            {exceeded ? "Exceeded by" : "Remaining"}
+                          </div>
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              fontSize: 14,
+                              color: exceeded ? "#dc2626" : "#16a34a",
+                            }}
+                          >
+                            ₹{Math.abs(remaining).toLocaleString()}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Percentage */}
+                      <div
+                        style={{
+                          fontWeight: 800,
+                          fontSize: 20,
+                          color: colors.text,
+                        }}
+                      >
+                        {percent}%
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       </div>
